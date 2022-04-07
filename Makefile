@@ -12,7 +12,14 @@ serve-setup:
 migrate-start: 
 	python3 manage.py db migrate -m "start"
 
-open-browser:
+runserver:
 	python3 manage.py runserver
 
-serve: serve-setup open-browser
+run-intros:
+	python3 manage.py intros
+
+runs-reminders:
+	python3 manage.py reminders
+
+
+serve: serve-setup runserver

@@ -1,4 +1,4 @@
-from airtng_flask.models import app_db, auth_token, account_sid, phone_number
+from grattitude.models import app_db, auth_token, account_sid, phone_number
 from flask import render_template
 from twilio.rest import Client
 import  phonenumbers 

@@ -1,13 +1,13 @@
 from flask_script import Manager, Server, Shell, Command
 from flask_migrate import Migrate, MigrateCommand
-from airtng_flask import app, db
+from grattitude import app, db
 from sqlalchemy import and_, or_, not_
-from airtng_flask.models.user import User
+from grattitude.models.user import User
 import time
 
 
 class ScheduleIntros(Command):
-    'A command to run Intros'
+    'A command to run Application Intros'
     def run(self):
         """Run scheduled job."""
         print('Finding Unintroduced Users...')
@@ -20,7 +20,7 @@ class ScheduleIntros(Command):
         print('Done!')
 
 class ScheduleGrattitude(Command):
-    'A command to run Grattitude'
+    'A command to run Grattitude Reminders'
     def run(self):
         """Run scheduled job."""
         print('Finding opted in and welcomed Users...')
@@ -28,25 +28,21 @@ class ScheduleGrattitude(Command):
         if not len(introduced_opedin_users):
             print('Nobody to ask grattitude of ...  =[')
         for user in introduced_opedin_users: 
-            print('Users:', user, " is getting asked = D!")
+            print('Users:', user, " is getting asked! =D")
             user.ask_grattitude()
         print('Done!')
-
-
-
-migrate = Migrate(app, db)
-
-manager = Manager(app)
-manager.add_command('runserver', Server(host='0.0.0.0', port=5001))
-manager.add_command('db', MigrateCommand)
-manager.add_command('intros', ScheduleIntros)
-manager.add_command('reminders', ScheduleGrattitude)
-
-
 
 def make_shell_context():
     return dict(app=app, db=db, User=User)
 
+
+migrate = Migrate(app, db)
+manager = Manager(app)
+
+manager.add_command('runserver', Server(host='0.0.0.0', port=80))
+manager.add_command('db', MigrateCommand)
+manager.add_command('intros', ScheduleIntros)
+manager.add_command('reminders', ScheduleGrattitude)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 

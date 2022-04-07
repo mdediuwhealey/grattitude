@@ -1,14 +1,14 @@
-from airtng_flask import db, app
+from grattitude import db, app
 from flask import session, g, request, flash, Blueprint, render_template
-from airtng_flask.models import init_models_module 
-from airtng_flask.view_helpers import twiml, check_affirmative, confirm_grattitude, confirm_admin_command
+from grattitude.models import init_models_module 
+from grattitude.view_helpers import twiml, check_affirmative, confirm_grattitude, confirm_admin_command
 from twilio.twiml.messaging_response import MessagingResponse
 import phonenumbers
 
 
 init_models_module(db, app)
 
-from airtng_flask.models.user import User
+from grattitude.models.user import User
 
 @app.route('/post-gratitude', methods=["POST"])
 def post_gratitude():
@@ -37,6 +37,7 @@ def post_gratitude():
         sms_response_text = render_template('messages/added.txt', number = u.phone_number)
 
     else:
+        sms_response_text = render_template('messages/generic.txt')
         user.left_unresponded += 1
 
     user.last_message = body

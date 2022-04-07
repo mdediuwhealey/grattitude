@@ -1,5 +1,5 @@
 import os
-from airtng_flask.config import config_env_files
+from grattitude.config import config_env_files
 from flask import Flask
 
 from flask_sqlalchemy import SQLAlchemy
@@ -17,7 +17,6 @@ def create_app(config_name='development', p_db=db):
 def config_app(config_name, new_app):
     new_app.config.from_object(config_env_files[config_name])
 
-
 app = create_app()
 
-import airtng_flask.views
+import grattitude.views

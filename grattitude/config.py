@@ -17,6 +17,9 @@ class DevelopmentConfig(DefaultConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dev.sqlite')
 
+class ProductionConfig(DefaultConfig):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'dev.sqlite')
 
 class TestConfig(DefaultConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
@@ -28,6 +31,7 @@ class TestConfig(DefaultConfig):
 
 
 config_env_files = {
-    'test': 'airtng_flask.config.TestConfig',
-    'development': 'airtng_flask.config.DevelopmentConfig',
+    'test': 'grattitude.config.TestConfig',
+    'development': 'grattitude.config.DevelopmentConfig',
+    'production': 'grattitude.config.ProductionConfig'
 }
